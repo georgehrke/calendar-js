@@ -22,7 +22,6 @@
 import AbstractComponent, {
 	advertiseSingleOccurrenceProperty,
 } from '../abstractComponent.js'
-import Timezone from '../../timezones/timezone.js'
 
 /**
  * @class TimezoneComponent
@@ -36,16 +35,6 @@ import Timezone from '../../timezones/timezone.js'
  * @url https://tools.ietf.org/html/rfc5545#section-3.6.5
  */
 export default class TimezoneComponent extends AbstractComponent {
-
-	/**
-	 * Returns a calendar-js Timezone object
-	 *
-	 * @returns {Timezone}
-	 */
-	toTimezone() {
-		return new Timezone(this.toICALJs())
-	}
-
 }
 
 /**

@@ -2,8 +2,10 @@
   "name": "calendar-js",
   "version": "1.0.0",
   "description": "Small library that wraps ICAL.js and provide more convenient means for editing",
-  "main": "src/index.js",
+  "main": "dist/dist.js",
   "scripts": {
+    "build": "rollup --config rollup.config.js",
+    "watch": "rollup --config rollup.config.js --watch",
     "build-doc": "./node_modules/.bin/esdoc",
     "lint": "eslint --ext .js src",
     "lint:fix": "eslint --ext .js src --fix",
@@ -20,29 +22,29 @@
     "rfc7986"
   ],
   "author": "Georg Ehrke",
-  "license": "AGPLv3+",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/georgehrke/calendar-js/issues"
   },
   "homepage": "https://github.com/georgehrke/calendar-js#readme",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=7.0.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
-    "@nextcloud/eslint-config": "^2.0.0",
-    "@nextcloud/eslint-plugin": "^1.5.0",
-    "babel-eslint": "^10.1.0",
+    "@nextcloud/babel-config": "^1.0.0-beta.1",
+    "@nextcloud/eslint-config": "^6.0.0",
+    "@nextcloud/eslint-plugin": "^2.0.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^19.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.2",
     "babel-jest": "^27.0.6",
     "esdoc": "^1.1.0",
     "esdoc-standard-plugin": "^1.0.0",
-    "eslint": "^6.8.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-loader": "^3.0.4",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
-    "eslint-plugin-standard": "^4.1.0",
-    "eslint-plugin-vue": "^6.2.2",
-    "jest": "^27.0.6"
+    "jest": "^27.0.6",
+    "rollup": "^2.53.2",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
     "ical.js": "^1.4.0",

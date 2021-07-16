@@ -1,14 +1,15 @@
 all: dev-setup lint test
 
 # Development environment
-dev-setup: clean-dev npm-init
+dev-setup: clean npm-init
 
 npm-init:
 	npm install
 
 # Cleaning
-clean-dev:
+clean:
 	rm -rf node_modules
+	rm -rf dist
 
 # Testing
 test:

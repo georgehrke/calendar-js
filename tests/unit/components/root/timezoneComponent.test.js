@@ -61,6 +61,4 @@ it('TimezoneComponent should ...', () => {
 
 	const timezoneComponent = TimezoneComponent.fromICALJs(icalValue)
 	expect(timezoneComponent instanceof TimezoneComponent).toEqual(true)
-	expect(timezoneComponent.toTimezone() instanceof Timezone)
-	expect(timezoneComponent.toTimezone().timezoneId).toEqual('Europe/Berlin')
 })
