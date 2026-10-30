@@ -718,8 +718,12 @@ export default class RecurrenceManager {
 			let compareDate
 			switch (uc(occurrence.name)) {
 				case 'VEVENT':
-				case 'VTODO':
 					compareDate = occurrence.endDate.toICALJs()
+					break
+
+				case 'VTODO':
+					// A task without DUE or DURATION has no end-date
+					compareDate = (occurrence.endDate ?? occurrence.startDate).toICALJs()
 					break
 
 				case 'VJOURNAL':
