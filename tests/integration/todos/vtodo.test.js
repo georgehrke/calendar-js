@@ -154,6 +154,29 @@ describe('VTODO Integration tests', () => {
 		expect(iterator.next().value).toEqual(undefined)
 	})
 
+	it('should properly expand a recurring task with only DTSTART', () => {
+		const ics = getAsset('vtodo-recurring-dtstart-only')
+		const start = DateTimeValue.fromJSDate(new Date(Date.UTC(2026, 10, 1, 0, 0, 0)))
+		const end = DateTimeValue.fromJSDate(new Date(Date.UTC(2026, 10, 15, 0, 0, 0)))
+
+		const iterator = parseICSAndGetAllOccurrencesBetween(ics, start, end)
+
+		const todo1 = iterator.next().value
+		expect(todo1.title).toEqual('Testing Repeating 1')
+		expect(todo1.id).toEqual('748d8a30-aa3d-463a-829a-d0ad39bf7f4d###1793995200')
+		expect(todo1.startDate.jsDate.toISOString()).toEqual('2026-11-06T20:00:00.000Z')
+		expect(todo1.endDate).toEqual(null)
+
+		const todo2 = iterator.next().value
+		expect(todo2.title).toEqual('Testing Repeating 1')
+		expect(todo2.id).toEqual('748d8a30-aa3d-463a-829a-d0ad39bf7f4d###1794600000')
+		expect(todo2.startDate.jsDate.toISOString()).toEqual('2026-11-13T20:00:00.000Z')
+		expect(todo2.endDate).toEqual(null)
+
+		// Verify there are no more todos
+		expect(iterator.next().value).toEqual(undefined)
+	})
+
 	it('should not expand a recurring tasks without a DTSTART', () => {
 		const ics = getAsset('vtodo-recurring-no-due-no-dtstart-invalid')
 		const start = DateTimeValue.fromJSDate(new Date(Date.UTC(1970, 0, 1, 0, 0, 0)))
