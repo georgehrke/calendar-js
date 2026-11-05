@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: CC0-1.0
+
+version = 1
+
+# Supply SPDX licensing for source and tests with legacy @license headers.
+# Existing copyright notices and per-file SPDX declarations remain in effect.
+[[annotations]]
+path = ["src/**", "tests/**"]
+precedence = "aggregate"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+# Metadata for project files and fixtures that cannot carry comment headers.
+[[annotations]]
+path = [
+    ".editorconfig",
+    ".github/CODEOWNERS",
+    ".github/ISSUE_TEMPLATE/**",
+    ".gitignore",
+    "CHANGELOG.md",
+    "Limitations.md",
+    "README.md",
+    "babel.config.cjs",
+    "eslint.config.mjs",
+    "package-lock.json",
+    "package.json",
+    "renovate.json",
+    "src/factories/__mocks__/dateFactory.js",
+    "tests/assets/**",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Nextcloud GmbH and Nextcloud contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
