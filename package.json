@@ -1,6 +1,6 @@
 {
   "name": "@nextcloud/calendar-js",
-  "version": "8.1.7",
+  "version": "8.1.8",
   "description": "Small library that wraps ICAL.js and provide more convenient means for editing",
   "type": "module",
   "main": "dist/index.cjs",
