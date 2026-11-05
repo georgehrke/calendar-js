@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nextcloud/calendar-js.git"
+    "url": "git+https://github.com/nextcloud-libraries/calendar-js.git"
   },
   "keywords": [
     "ical.js",
@@ -37,9 +37,9 @@
   "author": "Christoph Wurst",
   "license": "AGPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/nextcloud/calendar-js/issues"
+    "url": "https://github.com/nextcloud-libraries/calendar-js/issues"
   },
-  "homepage": "https://github.com/nextcloud/calendar-js#readme",
+  "homepage": "https://github.com/nextcloud-libraries/calendar-js#readme",
   "engines": {
     "node": "^24.0.0",
     "npm": "^11.3.0"
