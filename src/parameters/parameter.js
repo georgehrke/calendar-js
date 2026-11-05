@@ -35,7 +35,7 @@ export default class Parameter extends observerTrait(lockableTrait(class {})) {
 	 * Constructor
 	 *
 	 * @param {string} name The name of the parameter
-	 * @param {string|Array|null} value The value of the parameter
+	 * @param {string|string[]|null} value The value of the parameter
 	 */
 	constructor(name, value = null) {
 		super()
@@ -51,7 +51,7 @@ export default class Parameter extends observerTrait(lockableTrait(class {})) {
 		/**
 		 * Value of the parameter
 		 *
-		 * @type {string|Array|null}
+		 * @type {string|string[]|null}
 		 * @private
 		 */
 		this._value = value
@@ -60,7 +60,6 @@ export default class Parameter extends observerTrait(lockableTrait(class {})) {
 	/**
 	 * Get parameter name
 	 *
-	 * @readonly
 	 * @return {string}
 	 */
 	get name() {
@@ -70,7 +69,7 @@ export default class Parameter extends observerTrait(lockableTrait(class {})) {
 	/**
 	 * Get parameter value
 	 *
-	 * @return {string | Array}
+	 * @return {string | string[]}
 	 */
 	get value() {
 		return this._value
@@ -80,7 +79,7 @@ export default class Parameter extends observerTrait(lockableTrait(class {})) {
 	 * Set new parameter value
 	 *
 	 * @throws {ModificationNotAllowedError} if parameter is locked for modification
-	 * @param {string | Array} value The new value to set
+	 * @param {string | string[]} value The new value to set
 	 */
 	set value(value) {
 		this._modifyContent()
@@ -108,6 +107,7 @@ export default class Parameter extends observerTrait(lockableTrait(class {})) {
 	 * Gets an iterator for all values
 	 *
 	 * @yields {string} A parameter value
+	 * @return {Generator<string, void, undefined>}
 	 */
 	* getValueIterator() {
 		if (this.isMultiValue()) {
@@ -129,7 +129,7 @@ export default class Parameter extends observerTrait(lockableTrait(class {})) {
 	/**
 	 * Creates a copy of this parameter
 	 *
-	 * @return {Parameter}
+	 * @return {this}
 	 */
 	clone() {
 		const parameter = new this.constructor(this._name)
@@ -146,6 +146,7 @@ export default class Parameter extends observerTrait(lockableTrait(class {})) {
 
 	/**
 	 * @inheritDoc
+	 * @protected
 	 */
 	_modifyContent() {
 		super._modifyContent()

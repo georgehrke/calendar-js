@@ -41,6 +41,7 @@ export default class ConferenceProperty extends Property {
 	 * of the conference system
 	 *
 	 * @yields {string} A supported conference feature
+	 * @return {Generator<string, void, undefined>}
 	 */
 	* getFeatureIterator() {
 		if (!this.hasParameter('FEATURE')) {

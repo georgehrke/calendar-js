@@ -21,6 +21,10 @@
 import Property from './property.js'
 
 /**
+ * @import PeriodValue from '../values/periodValue.js'
+ */
+
+/**
  * @class FreeBusyProperty
  * @classdesc
  *

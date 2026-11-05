@@ -35,6 +35,8 @@ export default class AbstractRepairStep {
 
 	/**
 	 * @param {string} input String representation of the data to repair
+	 * @return {string} The repaired data
+	 * @abstract
 	 */
 	repair(input) {
 		void input

@@ -33,6 +33,7 @@ import ICAL from 'ical.js'
 export default class PeriodValue extends AbstractValue {
 	/**
 	 * @inheritDoc
+	 * @param {ConstructorParameters<typeof AbstractValue>} args Arguments forwarded to the base class constructor
 	 */
 	constructor(...args) {
 		super(...args)

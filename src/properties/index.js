@@ -36,7 +36,7 @@ import { uc } from '../helpers/stringHelper.js'
 /**
  *
  * @param {string} propName Name of the prop to get constructor for
- * @return {AttendeeProperty|GeoProperty|ConferenceProperty|Property|AttachmentProperty|ImageProperty|RelationProperty|RequestStatusProperty}
+ * @return {typeof AttendeeProperty|typeof GeoProperty|typeof ConferenceProperty|typeof Property|typeof AttachmentProperty|typeof ImageProperty|typeof RelationProperty|typeof RequestStatusProperty}
  */
 export function getConstructorForPropertyName(propName) {
 	switch (uc(propName)) {

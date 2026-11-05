@@ -23,6 +23,10 @@ import DurationValue from '../values/durationValue.js'
 import DateTimeValue from '../values/dateTimeValue.js'
 
 /**
+ * @import AbstractValue from '../values/abstractValue.js'
+ */
+
+/**
  * @class TriggerProperty
  * @classdesc
  *

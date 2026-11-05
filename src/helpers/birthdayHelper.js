@@ -20,6 +20,10 @@
  */
 
 /**
+ * @import EventComponent from '../components/root/eventComponent.js'
+ */
+
+/**
  * Gets kind of birthday event
  * returns "BDAY", "DEATHDATE", "ANNIVERSARY"
  * or null if this is not a birthday event

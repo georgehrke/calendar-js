@@ -30,12 +30,18 @@ import ICAL from 'ical.js'
 import TimezoneComponent from '../components/root/timezoneComponent.js'
 
 /**
+ * @import AbstractRecurringComponent from '../components/root/abstractRecurringComponent.js'
+ * @import { TimezoneManager } from '@nextcloud/timezones'
+ */
+
+/**
  * @class ICalendarParser
  * @classdesc
  */
 export default class ICalendarParser extends AbstractParser {
 	/**
 	 * @inheritDoc
+	 * @param {ConstructorParameters<typeof AbstractParser>} args Arguments forwarded to the base class constructor
 	 */
 	constructor(...args) {
 		super(...args)
@@ -181,6 +187,7 @@ export default class ICalendarParser extends AbstractParser {
 
 	/**
 	 * @inheritDoc
+	 * @return {Generator<CalendarComponent, void, undefined>}
 	 */
 	* getItemIterator() {
 		for (const itemList of this._items.values()) {

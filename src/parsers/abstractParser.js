@@ -20,6 +20,10 @@
  */
 
 /**
+ * @import CalendarComponent from '../components/calendarComponent.js'
+ */
+
+/**
  * @class AbstractParser
  * @classdesc
  */
@@ -90,7 +94,7 @@ export default class AbstractParser {
 		/**
 		 * Error count during parsing
 		 *
-		 * @type {Array}
+		 * @type {Error[]}
 		 * @protected
 		 */
 		this._errors = []
@@ -163,6 +167,8 @@ export default class AbstractParser {
 
 	/**
 	 * Returns one CalendarComponent at a time
+	 *
+	 * @return {Generator<CalendarComponent, void, undefined>}
 	 */
 	* getItemIterator() { // eslint-disable-line require-yield
 		throw new TypeError('Abstract method not implemented by subclass')

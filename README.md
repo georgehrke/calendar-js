@@ -32,6 +32,14 @@ npm run test
 npm run lint
 ```
 
+### TypeScript definitions
+
+`npm run build` generates `dist/index.d.ts` for ES modules and `dist/index.d.cts` for CommonJS from the JavaScript and JSDoc. Update the JSDoc when changing the API and do not edit the generated files.
+
+Members installed on a prototype by the `advertise*` helpers are invisible to TypeScript, so each component declares them in a `@typedef` named `<Component>Members` above the class. When adding an advertised member, also add it to that typedef.
+
+Run `npm run test:types` to build and check strict TypeScript consumers with NodeNext (ES modules and CommonJS) and bundler module resolution. To check an existing build, use `npm run check:types`.
+
 ## Releases
 
 This repository follows the concept of [conventional commits](https://www.conventionalcommits.org/en/v1.0.0).

@@ -24,6 +24,17 @@ import AbstractComponent, {
 import { Timezone } from '@nextcloud/timezones'
 
 /**
+ * @import { Mixin } from '../../traits/mixin.js'
+ */
+
+/**
+ * Members installed on the prototype by the advertise helpers at the end of this file
+ *
+ * @typedef {object} TimezoneComponentMembers
+ * @property {string | null} timezoneId The timezoneId of this timezone-component
+ */
+
+/**
  * @class TimezoneComponent
  * @classdesc
  *
@@ -34,7 +45,7 @@ import { Timezone } from '@nextcloud/timezones'
  *
  * @see https://tools.ietf.org/html/rfc5545#section-3.6.5
  */
-export default class TimezoneComponent extends AbstractComponent {
+export default class TimezoneComponent extends /** @type {typeof AbstractComponent & Mixin<TimezoneComponentMembers>} */ (AbstractComponent) {
 	/**
 	 * Returns a calendar-js Timezone object
 	 *

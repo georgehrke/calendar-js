@@ -257,7 +257,7 @@ export default class RecurValue extends AbstractValue {
 	 * Gets all parts of a component
 	 *
 	 * @param {string} componentName The name of the component to get
-	 * @return {Array}
+	 * @return {Array<number|string>}
 	 */
 	getComponent(componentName) {
 		return this._innerValue.getComponent(componentName)

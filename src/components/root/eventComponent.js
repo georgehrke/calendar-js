@@ -34,12 +34,38 @@ import GeoProperty from '../../properties/geoProperty.js'
 import ConferenceProperty from '../../properties/conferenceProperty.js'
 
 /**
+ * @import { Mixin } from '../../traits/mixin.js'
+ * @import DateTimeValue from '../../values/dateTimeValue.js'
+ * @import { Timezone } from '@nextcloud/timezones'
+ */
+
+/**
+ * Members installed on the prototype by the advertise helpers at the end of this file
+ *
+ * @typedef {object} EventComponentMembers
+ * @property {'OPAQUE' | 'TRANSPARENT' | null} timeTransparency Time-transparency of this event, TRANSPARENT events are ignored for FREE/BUSY calculations
+ * @property {string | null} description Description of this event
+ * @property {number | null} geographicalPosition Latitude of the geographical position of this event
+ * @property {string | null} location Location that this event takes place in
+ * @property {number} priority Priority of this event
+ * @property {(lang?: string | null) => Generator<string, void, undefined>} getResourceIterator Returns an iterator over all resources, optionally only those of the given language
+ * @property {(lang?: string | null) => string[]} getResourceList Returns a list of all resources, optionally only those of the given language
+ * @property {(value: string, lang?: string | null) => void} addResource Adds a value to the resources
+ * @property {(value: string, lang?: string | null) => boolean} removeResource Removes a value from the resources, returns whether it was found
+ * @property {(lang?: string | null) => void} clearAllResources Removes all resources, optionally only those of the given language
+ * @property {() => Generator<ConferenceProperty, void, undefined>} getConferenceIterator Returns an iterator over all conferences
+ * @property {() => ConferenceProperty[]} getConferenceList Returns a list of all conferences
+ * @property {(item: ConferenceProperty) => void} removeConference Removes one of the conferences
+ * @property {() => void} clearAllConferences Removes all conferences
+ */
+
+/**
  * @class EventComponent
  * @classdesc
  *
  * @see https://tools.ietf.org/html/rfc5545#section-3.6.1
  */
-export default class EventComponent extends AbstractRecurringComponent {
+export default class EventComponent extends /** @type {typeof AbstractRecurringComponent & Mixin<EventComponentMembers>} */ (AbstractRecurringComponent) {
 	/**
 	 * Returns whether this event is an all-day event
 	 *
@@ -319,7 +345,7 @@ advertiseSingleOccurrenceProperty(EventComponent.prototype, 'description')
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.1.6
  *
  * @name EventComponent#geographicalPosition
- * @type {string}
+ * @type {number}
  */
 advertiseSingleOccurrenceProperty(EventComponent.prototype, {
 	name: 'geographicalPosition',

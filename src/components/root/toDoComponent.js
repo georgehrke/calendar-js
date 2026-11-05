@@ -28,12 +28,41 @@ import ConferenceProperty from '../../properties/conferenceProperty.js'
 import GeoProperty from '../../properties/geoProperty.js'
 
 /**
+ * @import { Mixin } from '../../traits/mixin.js'
+ * @import DateTimeValue from '../../values/dateTimeValue.js'
+ * @import DurationValue from '../../values/durationValue.js'
+ * @import { Timezone } from '@nextcloud/timezones'
+ */
+
+/**
+ * Members installed on the prototype by the advertise helpers at the end of this file
+ *
+ * @typedef {object} ToDoComponentMembers
+ * @property {DateTimeValue | null} completedTime The time when this task was completed
+ * @property {DateTimeValue | null} dueTime The time when this task is due
+ * @property {DurationValue | null} duration The duration of this task
+ * @property {number | null} percent The percentage this task was already fulfilled
+ * @property {string | null} description Description of this task
+ * @property {string | null} location Location of this task
+ * @property {number} priority Priority of this task
+ * @property {(lang?: string | null) => Generator<string, void, undefined>} getResourceIterator Returns an iterator over all resources, optionally only those of the given language
+ * @property {(lang?: string | null) => string[]} getResourceList Returns a list of all resources, optionally only those of the given language
+ * @property {(value: string, lang?: string | null) => void} addResource Adds a value to the resources
+ * @property {(value: string, lang?: string | null) => boolean} removeResource Removes a value from the resources, returns whether it was found
+ * @property {(lang?: string | null) => void} clearAllResources Removes all resources, optionally only those of the given language
+ * @property {() => Generator<ConferenceProperty, void, undefined>} getConferenceIterator Returns an iterator over all conferences
+ * @property {() => ConferenceProperty[]} getConferenceList Returns a list of all conferences
+ * @property {(item: ConferenceProperty) => void} removeConference Removes one of the conferences
+ * @property {() => void} clearAllConferences Removes all conferences
+ */
+
+/**
  * @class ToDoComponent
  * @classdesc
  *
  * @see https://tools.ietf.org/html/rfc5545#section-3.6.2
  */
-export default class ToDoComponent extends AbstractRecurringComponent {
+export default class ToDoComponent extends /** @type {typeof AbstractRecurringComponent & Mixin<ToDoComponentMembers>} */ (AbstractRecurringComponent) {
 	/**
 	 * Returns whether this event is an all-day event
 	 *
@@ -288,7 +317,7 @@ advertiseSingleOccurrenceProperty(ToDoComponent.prototype, 'location')
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.1.9
  *
  * @name ToDoComponent#priority
- * @type {string}
+ * @type {number}
  */
 advertiseSingleOccurrenceProperty(ToDoComponent.prototype, {
 	name: 'priority',

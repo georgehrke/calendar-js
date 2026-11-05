@@ -28,6 +28,8 @@ export default class ICalendarAddMissingValueDateRepairStep extends AbstractRepa
 	 * Please see the corresponding test file for an example of broken calendar-data
 	 *
 	 * @inheritDoc
+	 * @param {string} ics String representation of the data to repair
+	 * @return {string} The repaired data
 	 */
 	repair(ics) {
 		return ics
