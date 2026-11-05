@@ -29,6 +29,11 @@ import observerTrait from '../traits/observer.js'
 import ICAL from 'ical.js'
 
 /**
+ * @import AbstractValue from '../values/abstractValue.js'
+ * @import CalendarComponent from './calendarComponent.js'
+ */
+
+/**
  * @class AbstractComponent
  */
 export default class AbstractComponent extends observerTrait(lockableTrait(class {})) {
@@ -36,7 +41,7 @@ export default class AbstractComponent extends observerTrait(lockableTrait(class
 	 * Constructor
 	 *
 	 * @param {string} name - Name of component
-	 * @param {Property[]} properties - Array of properties stored inside the component
+	 * @param {Array<Property | [string, string | number | AbstractValue | string[] | number[] | AbstractValue[] | null]>} properties - Array of properties stored inside the component
 	 * @param {AbstractComponent[]} components - Array of subcomponents stored inside this component
 	 * @param {CalendarComponent|null} root - The root of this calendar document
 	 * @param {AbstractComponent|null} parent - The parent component of this element
@@ -196,6 +201,7 @@ export default class AbstractComponent extends observerTrait(lockableTrait(class
 	 * or if no propertyName was given over all available properties
 	 *
 	 * @yields {Property} A property matching the requested name
+	 * @return {Generator<Property, void, undefined>}
 	 *
 	 * @param {string=} propertyName Name of the property to get an iterator for
 	 */
@@ -221,6 +227,7 @@ export default class AbstractComponent extends observerTrait(lockableTrait(class
 	 * @param {string} propertyName The name of the property
 	 * @param {string | null} lang The lang to query
 	 * @yields {Property} A property matching the requested language
+	 * @return {Generator<Property, void, undefined>}
 	 *
 	 * @private
 	 */
@@ -346,6 +353,7 @@ export default class AbstractComponent extends observerTrait(lockableTrait(class
 	 * or if no componentName was given over all available components
 	 *
 	 * @yields {AbstractComponent} A component matching the requested name
+	 * @return {Generator<AbstractComponent, void, undefined>}
 	 *
 	 * @param {string=} componentName The name of the component
 	 */
@@ -479,9 +487,9 @@ export default class AbstractComponent extends observerTrait(lockableTrait(class
 	}
 
 	/**
-	 * Creates a copy of this parameter
+	 * Creates a copy of this component
 	 *
-	 * @return {AbstractComponent}
+	 * @return {this}
 	 */
 	clone() {
 		const properties = []
@@ -500,7 +508,7 @@ export default class AbstractComponent extends observerTrait(lockableTrait(class
 	/**
 	 * Adds properties from constructor to this._properties
 	 *
-	 * @param {Property[]} properties Array of properties
+	 * @param {Array<Property | [string, string | number | AbstractValue | string[] | number[] | AbstractValue[] | null]>} properties Array of properties
 	 * @private
 	 */
 	_setPropertiesFromConstructor(properties) {
@@ -561,7 +569,7 @@ export default class AbstractComponent extends observerTrait(lockableTrait(class
 	 * Gets a constructor for a give component name
 	 *
 	 * @param {string} componentName The name of the component
-	 * @return {AbstractComponent}
+	 * @return {typeof AbstractComponent}
 	 * @protected
 	 */
 	static _getConstructorForComponentName(componentName) {

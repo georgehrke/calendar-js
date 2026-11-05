@@ -26,12 +26,30 @@ import { Timezone } from '@nextcloud/timezones'
 import AttendeeProperty from '../../properties/attendeeProperty.js'
 
 /**
+ * @import { Mixin } from '../../traits/mixin.js'
+ * @import DateTimeValue from '../../values/dateTimeValue.js'
+ * @import FreeBusyProperty from '../../properties/freeBusyProperty.js'
+ */
+
+/**
+ * Members installed on the prototype by the advertise helpers at the end of this file
+ *
+ * @typedef {object} FreeBusyComponentMembers
+ * @property {string | null} organizer Calendar address of the organizer of this FreeBusy component
+ * @property {string | null} uid The UID of this FreeBusy component
+ * @property {() => Generator<AttendeeProperty, void, undefined>} getAttendeeIterator Returns an iterator over all attendees
+ * @property {() => AttendeeProperty[]} getAttendeeList Returns a list of all attendees
+ * @property {(item: AttendeeProperty) => void} removeAttendee Removes one of the attendees
+ * @property {() => void} clearAllAttendees Removes all attendees
+ */
+
+/**
  * @class FreeBusyComponent
  * @classdesc
  *
  * @see https://tools.ietf.org/html/rfc5545#section-3.6.4
  */
-export default class FreeBusyComponent extends AbstractComponent {
+export default class FreeBusyComponent extends /** @type {typeof AbstractComponent & Mixin<FreeBusyComponentMembers>} */ (AbstractComponent) {
 	/**
 	 * Gets the start-date of the FreeBusy component
 	 *
@@ -74,6 +92,7 @@ export default class FreeBusyComponent extends AbstractComponent {
 	 * Gets an iterator over all FreeBusyProperties
 	 *
 	 * @yields {FreeBusyProperty} A free-busy property
+	 * @return {Generator<FreeBusyProperty, void, undefined>}
 	 */
 	* getFreeBusyIterator() {
 		yield* this.getPropertyIterator('FREEBUSY')
@@ -113,7 +132,7 @@ export default class FreeBusyComponent extends AbstractComponent {
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.4.3
  *
  * @name FreeBusyComponent#organizer
- * @type {AttendeeProperty}
+ * @type {string}
  */
 advertiseSingleOccurrenceProperty(FreeBusyComponent.prototype, 'organizer')
 
@@ -122,8 +141,8 @@ advertiseSingleOccurrenceProperty(FreeBusyComponent.prototype, 'organizer')
  *
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.4.7
  *
- * @name FreeBusyComponent#organizer
- * @type {AttendeeProperty}
+ * @name FreeBusyComponent#uid
+ * @type {string}
  */
 advertiseSingleOccurrenceProperty(FreeBusyComponent.prototype, 'uid')
 

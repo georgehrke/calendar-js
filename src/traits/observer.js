@@ -20,8 +20,22 @@
  */
 
 /**
+ * @import { Mixin } from './mixin.js'
+ */
+
+/**
+ * Public members of the observer trait
  *
- * @param {new (...args: unknown[]) => object} baseClass Base class to extend
+ * @typedef {object} Observable
+ * @property {(handler: (...args: unknown[]) => void) => void} subscribe Adds a new subscriber
+ * @property {(handler: (...args: unknown[]) => void) => void} unsubscribe Removes a subscriber
+ */
+
+/**
+ *
+ * @template {Mixin<object>} T
+ * @param {T} baseClass Base class to extend
+ * @return {T & Mixin<Observable>} The base class extended by the public members of this trait
  */
 export default function observerTrait(baseClass) {
 	/**

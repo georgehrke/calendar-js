@@ -27,6 +27,8 @@ path = [
     "renovate.json",
     "src/factories/__mocks__/dateFactory.js",
     "tests/assets/**",
+    "tests/types/*.json",
+    "tsconfig.json",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Nextcloud GmbH and Nextcloud contributors"

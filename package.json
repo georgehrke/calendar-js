@@ -4,10 +4,17 @@
   "description": "Small library that wraps ICAL.js and provide more convenient means for editing",
   "type": "module",
   "main": "dist/index.cjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "files": [
@@ -23,7 +30,9 @@
     "lint:fix": "eslint src --fix",
     "test": "TZ=UTC jest",
     "test:watch": "TZ=UTC jest --watch",
-    "test:coverage": "TZ=UTC jest --coverage"
+    "test:coverage": "TZ=UTC jest --coverage",
+    "test:types": "npm run build && npm run check:types",
+    "check:types": "node tests/types/check.mjs"
   },
   "repository": {
     "type": "git",
@@ -54,6 +63,7 @@
     "babel-jest": "^30.5.2",
     "eslint": "^10.14.0",
     "jest": "^30.5.2",
+    "typescript": "^6.0.3",
     "vite": "^7.3.7"
   },
   "peerDependencies": {

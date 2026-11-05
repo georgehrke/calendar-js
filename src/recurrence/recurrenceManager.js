@@ -27,6 +27,12 @@ import PeriodValue from '../values/periodValue.js'
 import ICAL from 'ical.js'
 
 /**
+ * @import AbstractRecurringComponent from '../components/root/abstractRecurringComponent.js'
+ * @import DurationValue from '../values/durationValue.js'
+ * @import RecurValue from '../values/recurValue.js'
+ */
+
+/**
  * @class RecurrenceHelper
  * @classdesc
  *
@@ -103,6 +109,7 @@ export default class RecurrenceManager {
 	 * Gets an iterator over all registered recurrence exceptions of this calendar-document
 	 *
 	 * @yields {AbstractRecurringComponent} A recurrence exception
+	 * @return {Generator<AbstractRecurringComponent, void, undefined>}
 	 */
 	* getRecurrenceExceptionIterator() {
 		yield* this._recurrenceExceptionItems.values()
@@ -296,6 +303,7 @@ export default class RecurrenceManager {
 	 * Gets an iterator over all recurrence rules
 	 *
 	 * @yields {RecurValue} A recurrence rule
+	 * @return {Generator<RecurValue, void, undefined>}
 	 */
 	* getRecurrenceRuleIterator() {
 		for (const property of this._masterItem.getPropertyIterator('RRULE')) {
@@ -357,6 +365,7 @@ export default class RecurrenceManager {
 	 * @param {boolean} isNegative Whether or not to get EXDATES
 	 * @param {string} valueType Limit type of EXDATES
 	 * @yields {DateTimeValue|PeriodValue} A recurrence date
+	 * @return {Generator<DateTimeValue|PeriodValue, void, undefined>}
 	 */
 	* getRecurrenceDateIterator(isNegative = false, valueType = null) {
 		for (const property of this._getPropertiesForRecurrenceDate(isNegative, valueType)) {
@@ -529,6 +538,7 @@ export default class RecurrenceManager {
 	 * @param {string | null} valueType The type of values to get
 	 * @param {ICAL.Timezone=} timezoneId Filter by timezone
 	 * @yields {Property} A recurrence-date property matching the filters
+	 * @return {Generator<Property, void, undefined>}
 	 * @private
 	 */
 	* _getPropertiesForRecurrenceDate(isNegative, valueType, timezoneId = null) {
@@ -683,6 +693,7 @@ export default class RecurrenceManager {
 	 * @param {DateTimeValue} queriedTimeRangeStart Start of time-range
 	 * @param {DateTimeValue} queriedTimeRangeEnd End of time-range
 	 * @yields {AbstractRecurringComponent} An occurrence in the requested time range
+	 * @return {Generator<AbstractRecurringComponent, void, undefined>}
 	 */
 	* getAllOccurrencesBetweenIterator(queriedTimeRangeStart, queriedTimeRangeEnd) {
 		if (!this.masterItem.isRecurring()) {

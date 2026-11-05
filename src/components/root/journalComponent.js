@@ -23,12 +23,26 @@ import { advertiseMultipleOccurrenceProperty } from '../abstractComponent.js'
 import TextProperty from '../../properties/textProperty.js'
 
 /**
+ * @import { Mixin } from '../../traits/mixin.js'
+ */
+
+/**
+ * Members installed on the prototype by the advertise helpers at the end of this file
+ *
+ * @typedef {object} JournalComponentMembers
+ * @property {() => Generator<TextProperty, void, undefined>} getDescriptionIterator Returns an iterator over all descriptions
+ * @property {() => TextProperty[]} getDescriptionList Returns a list of all descriptions
+ * @property {(item: TextProperty) => void} removeDescription Removes one of the descriptions
+ * @property {() => void} clearAllDescriptions Removes all descriptions
+ */
+
+/**
  * @class JournalComponent
  * @classdesc
  *
  * @see https://tools.ietf.org/html/rfc5545#section-3.6.3
  */
-export default class JournalComponent extends AbstractRecurringComponent {
+export default class JournalComponent extends /** @type {typeof AbstractRecurringComponent & Mixin<JournalComponentMembers>} */ (AbstractRecurringComponent) {
 	/**
 	 * Adds a new description property
 	 *
@@ -48,7 +62,7 @@ export default class JournalComponent extends AbstractRecurringComponent {
  *
  * @name JournalComponent#getDescriptionIterator
  * @function
- * @return {IterableIterator<ConferenceProperty>}
+ * @return {IterableIterator<TextProperty>}
  */
 
 /**
@@ -58,7 +72,7 @@ export default class JournalComponent extends AbstractRecurringComponent {
  *
  * @name JournalComponent#getDescriptionList
  * @function
- * @return {ConferenceProperty[]}
+ * @return {TextProperty[]}
  */
 
 /**
@@ -68,7 +82,7 @@ export default class JournalComponent extends AbstractRecurringComponent {
  *
  * @name JournalComponent#removeDescription
  * @function
- * @param {ConferenceProperty} conference
+ * @param {TextProperty} description
  */
 
 /**

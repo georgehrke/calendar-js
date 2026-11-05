@@ -22,6 +22,10 @@ import lockableTrait from '../traits/lockable.js'
 import observerTrait from '../traits/observer.js'
 
 /**
+ * @import ICAL from 'ical.js'
+ */
+
+/**
  * @class AbstractValue
  * @classdesc BaseClass for all values
  */
@@ -56,6 +60,7 @@ export default class AbstractValue extends observerTrait(lockableTrait(class {})
 
 	/**
 	 * @inheritDoc
+	 * @protected
 	 */
 	_modifyContent() {
 		super._modifyContent()

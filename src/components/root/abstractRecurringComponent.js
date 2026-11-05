@@ -44,6 +44,66 @@ import { getConfig } from '../../config.js'
 import { getConstructorForComponentName } from '../nested/index.js'
 
 /**
+ * @import AbstractValue from '../../values/abstractValue.js'
+ * @import Property from '../../properties/property.js'
+ * @import { Mixin } from '../../traits/mixin.js'
+ */
+
+/**
+ * Members installed on the prototype by the advertise helpers at the end of this file
+ *
+ * @typedef {object} AbstractRecurringComponentMembers
+ * @property {DateTimeValue | null} stampTime Date-Time stamp of this object
+ * @property {DateTimeValue | null} recurrenceId Recurrence-ID of this object, used for recurrence-exceptions
+ * @property {string | null} color Special color for this event / journal / task
+ * @property {DateTimeValue | null} creationTime Creation time of this event / journal / task
+ * @property {DateTimeValue | null} modificationTime Last modification time of this event / journal / task
+ * @property {string | null} organizer Calendar address of the organizer of this event / journal / task
+ * @property {number | null} sequence Revision of this event / journal / task
+ * @property {string | null} status Status of this event / journal / task
+ * @property {string | null} url URL of a more dynamic rendition of this event / journal / task
+ * @property {string | null} title Title of this event / journal / task
+ * @property {'PUBLIC' | 'PRIVATE' | 'CONFIDENTIAL'} accessClass Access class of this event / journal / task, determines what other users can see when sharing
+ * @property {(lang?: string | null) => Generator<string, void, undefined>} getCategoryIterator Returns an iterator over all categories, optionally only those of the given language
+ * @property {(lang?: string | null) => string[]} getCategoryList Returns a list of all categories, optionally only those of the given language
+ * @property {(value: string, lang?: string | null) => void} addCategory Adds a value to the categories
+ * @property {(value: string, lang?: string | null) => boolean} removeCategory Removes a value from the categories, returns whether it was found
+ * @property {(lang?: string | null) => void} clearAllCategories Removes all categories, optionally only those of the given language
+ * @property {() => Generator<AttendeeProperty, void, undefined>} getAttendeeIterator Returns an iterator over all attendees
+ * @property {() => AttendeeProperty[]} getAttendeeList Returns a list of all attendees
+ * @property {(item: AttendeeProperty) => void} removeAttendee Removes one of the attendees
+ * @property {() => void} clearAllAttendees Removes all attendees
+ * @property {() => Generator<AttachmentProperty, void, undefined>} getAttachmentIterator Returns an iterator over all attachments
+ * @property {() => AttachmentProperty[]} getAttachmentList Returns a list of all attachments
+ * @property {(item: AttachmentProperty) => void} removeAttachment Removes one of the attachments
+ * @property {() => void} clearAllAttachments Removes all attachments
+ * @property {() => Generator<RelationProperty, void, undefined>} getRelationIterator Returns an iterator over all relations
+ * @property {() => RelationProperty[]} getRelationList Returns a list of all relations
+ * @property {(item: RelationProperty) => void} removeRelation Removes one of the relations
+ * @property {() => void} clearAllRelations Removes all relations
+ * @property {() => Generator<TextProperty, void, undefined>} getCommentIterator Returns an iterator over all comments
+ * @property {() => TextProperty[]} getCommentList Returns a list of all comments
+ * @property {(item: TextProperty) => void} removeComment Removes one of the comments
+ * @property {() => void} clearAllComments Removes all comments
+ * @property {() => Generator<TextProperty, void, undefined>} getContactIterator Returns an iterator over all contacts
+ * @property {() => TextProperty[]} getContactList Returns a list of all contacts
+ * @property {(item: TextProperty) => void} removeContact Removes one of the contacts
+ * @property {() => void} clearAllContacts Removes all contacts
+ * @property {() => Generator<ImageProperty, void, undefined>} getImageIterator Returns an iterator over all images
+ * @property {() => ImageProperty[]} getImageList Returns a list of all images
+ * @property {(item: ImageProperty) => void} removeImage Removes one of the images
+ * @property {() => void} clearAllImages Removes all images
+ * @property {() => Generator<RequestStatusProperty, void, undefined>} getRequestStatusIterator Returns an iterator over all request-statuses
+ * @property {() => RequestStatusProperty[]} getRequestStatusList Returns a list of all request-statuses
+ * @property {(item: RequestStatusProperty) => void} removeRequestStatus Removes one of the request-statuses
+ * @property {() => void} clearAllRequestStatus Removes all request-statuses
+ * @property {() => Generator<AlarmComponent, void, undefined>} getAlarmIterator Returns an iterator over all alarms
+ * @property {() => AlarmComponent[]} getAlarmList Returns a list of all alarms
+ * @property {(item: AlarmComponent) => void} removeAlarm Removes one of the alarms
+ * @property {() => void} clearAllAlarms Removes all alarms
+ */
+
+/**
  * @class AbstractRecurringComponent
  * @classdesc AbstractRecurringComponent is the basis for
  * EventComponent, JournalComponent and TodoComponent.
@@ -53,9 +113,10 @@ import { getConstructorForComponentName } from '../nested/index.js'
  * properties and all subcomponents that the three
  * components mentioned before have in common
  */
-export default class AbstractRecurringComponent extends AbstractComponent {
+export default class AbstractRecurringComponent extends /** @type {typeof AbstractComponent & Mixin<AbstractRecurringComponentMembers>} */ (AbstractComponent) {
 	/**
 	 * @inheritDoc
+	 * @param {ConstructorParameters<typeof AbstractComponent>} args Arguments forwarded to the base class constructor
 	 */
 	constructor(...args) {
 		super(...args)
@@ -619,6 +680,7 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @return {this}
 	 */
 	clone() {
 		const comp = super.clone()
@@ -902,6 +964,8 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @param {string} propertyName Name of the property to update / create
+	 * @param {string | number | AbstractValue | string[] | number[] | AbstractValue[] | null} value The value to set
 	 */
 	updatePropertyWithValue(propertyName, value) {
 		super.updatePropertyWithValue(propertyName, value)
@@ -915,6 +979,8 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @param {Property} property The property to add
+	 * @return {boolean}
 	 */
 	addProperty(property) {
 		this.markPropertyAsDirty(property.name)
@@ -924,6 +990,8 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @param {Property} property The property to delete
+	 * @return {boolean}
 	 */
 	deleteProperty(property) {
 		this.markPropertyAsDirty(property.name)
@@ -932,6 +1000,8 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @param {string} propertyName The name of the properties to delete
+	 * @return {boolean}
 	 */
 	deleteAllProperties(propertyName) {
 		this.markPropertyAsDirty(propertyName)
@@ -940,6 +1010,8 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @param {AbstractComponent} component The component to add
+	 * @return {boolean}
 	 */
 	addComponent(component) {
 		this.markSubComponentAsDirty(component.name)
@@ -949,6 +1021,8 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @param {AbstractComponent} component The component to delete
+	 * @return {boolean}
 	 */
 	deleteComponent(component) {
 		this.markSubComponentAsDirty(component.name)
@@ -957,6 +1031,8 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @param {string} componentName The name of the components to delete
+	 * @return {boolean}
 	 */
 	deleteAllComponents(componentName) {
 		this.markSubComponentAsDirty(componentName)
@@ -1005,6 +1081,8 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @param {string} componentName The name of the component
+	 * @return {ReturnType<typeof getConstructorForComponentName>}
 	 */
 	static _getConstructorForComponentName(componentName) {
 		return getConstructorForComponentName(componentName)
@@ -1012,6 +1090,8 @@ export default class AbstractRecurringComponent extends AbstractComponent {
 
 	/**
 	 * @inheritDoc
+	 * @param {Parameters<typeof AbstractComponent.fromICALJs>} args Arguments forwarded to the base class
+	 * @return {AbstractComponent}
 	 */
 	static fromICALJs(...args) {
 		const comp = super.fromICALJs(...args)
@@ -1028,7 +1108,7 @@ export default class AbstractRecurringComponent extends AbstractComponent {
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.7.2
  *
  * @name EventComponent#stampTime
- * @type {string}
+ * @type {DateTimeValue}
  */
 advertiseSingleOccurrenceProperty(AbstractRecurringComponent.prototype, {
 	name: 'stampTime',
@@ -1041,7 +1121,7 @@ advertiseSingleOccurrenceProperty(AbstractRecurringComponent.prototype, {
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.4.4
  *
  * @name EventComponent#recurrenceId
- * @type {string}
+ * @type {DateTimeValue}
  */
 advertiseSingleOccurrenceProperty(AbstractRecurringComponent.prototype, {
 	name: 'recurrenceId',
@@ -1064,7 +1144,7 @@ advertiseSingleOccurrenceProperty(AbstractRecurringComponent.prototype, 'color')
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.7.1
  *
  * @name EventComponent#creationTime
- * @type {string}
+ * @type {DateTimeValue}
  */
 advertiseSingleOccurrenceProperty(AbstractRecurringComponent.prototype, {
 	name: 'creationTime',
@@ -1077,7 +1157,7 @@ advertiseSingleOccurrenceProperty(AbstractRecurringComponent.prototype, {
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.7.3
  *
  * @name EventComponent#modificationTime
- * @type {string}
+ * @type {DateTimeValue}
  */
 advertiseSingleOccurrenceProperty(AbstractRecurringComponent.prototype, {
 	name: 'modificationTime',
@@ -1100,7 +1180,7 @@ advertiseSingleOccurrenceProperty(AbstractRecurringComponent.prototype, 'organiz
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.7.4
  *
  * @name EventComponent#sequence
- * @type {string}
+ * @type {number}
  */
 advertiseSingleOccurrenceProperty(AbstractRecurringComponent.prototype, 'sequence')
 
@@ -1221,7 +1301,7 @@ advertiseMultiValueStringPropertySeparatedByLang(AbstractRecurringComponent.prot
  *
  * @name AbstractRecurringComponent#getAttendeeList
  * @function
- * @return {AttachmentProperty[]}
+ * @return {AttendeeProperty[]}
  */
 
 /**

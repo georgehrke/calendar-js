@@ -21,8 +21,23 @@
 import ModificationNotAllowedError from '../errors/modificationNotAllowedError.js'
 
 /**
+ * @import { Mixin } from './mixin.js'
+ */
+
+/**
+ * Public members of the lockable trait
  *
- * @param {new (...args: unknown[]) => object} baseClass Base class to extend
+ * @typedef {object} Lockable
+ * @property {() => boolean} isLocked Returns whether or not this object is locked
+ * @property {() => void} lock Marks this object as immutable, locking it against further modification
+ * @property {() => void} unlock Marks this object as mutable, allowing further modification
+ */
+
+/**
+ *
+ * @template {Mixin<object>} T
+ * @param {T} baseClass Base class to extend
+ * @return {T & Mixin<Lockable>} The base class extended by the public members of this trait
  */
 export default function lockableTrait(baseClass) {
 	/**

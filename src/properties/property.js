@@ -30,6 +30,11 @@ import observerTrait from '../traits/observer.js'
 import ICAL from 'ical.js'
 
 /**
+ * @import AbstractComponent from '../components/abstractComponent.js'
+ * @import CalendarComponent from '../components/calendarComponent.js'
+ */
+
+/**
  * @class Property
  * @classdesc This class represents a property as defined in RFC 5545 Section 3.5
  *
@@ -42,7 +47,7 @@ export default class Property extends observerTrait(lockableTrait(class {})) {
 	 *
 	 * @param {string} name The name of the property
 	 * @param {string | number | AbstractValue | string[] | number[] | AbstractValue[] | null} value The value of the property
-	 * @param {Parameter[] | [string][]} parameters Array of parameters
+	 * @param {Array<Parameter | [string, string | string[] | null]>} parameters Array of parameters
 	 * @param {CalendarComponent|null} root The root of the calendar-document
 	 * @param {AbstractComponent|null} parent The parent-element of this property
 	 */
@@ -97,7 +102,6 @@ export default class Property extends observerTrait(lockableTrait(class {})) {
 	/**
 	 * Get property name
 	 *
-	 * @readonly
 	 * @return {string}
 	 */
 	get name() {
@@ -189,6 +193,7 @@ export default class Property extends observerTrait(lockableTrait(class {})) {
 	 * Gets an iterator over all values
 	 *
 	 * @yields {string|number|AbstractValue} A property value
+	 * @return {Generator<string|number|AbstractValue, void, undefined>}
 	 */
 	* getValueIterator() {
 		if (this.isMultiValue()) {
@@ -267,6 +272,7 @@ export default class Property extends observerTrait(lockableTrait(class {})) {
 	 * Gets an iterator over all available parameters
 	 *
 	 * @yields {Parameter} A property parameter
+	 * @return {Generator<Parameter, void, undefined>}
 	 */
 	* getParametersIterator() {
 		yield* this._parameters.values()
@@ -317,7 +323,7 @@ export default class Property extends observerTrait(lockableTrait(class {})) {
 	 * create a new one if it doesn't
 	 *
 	 * @param {string} parameterName Name of the parameter
-	 * @param {string|Array|null} value Value to set
+	 * @param {string|string[]|null} value Value to set
 	 * @throws {ModificationNotAllowedError} if property is locked for modification
 	 */
 	updateParameterIfExist(parameterName, value) {
@@ -392,7 +398,7 @@ export default class Property extends observerTrait(lockableTrait(class {})) {
 	/**
 	 * Creates a copy of this parameter
 	 *
-	 * @return {Property}
+	 * @return {this}
 	 */
 	clone() {
 		const parameters = []
@@ -429,7 +435,7 @@ export default class Property extends observerTrait(lockableTrait(class {})) {
 	/**
 	 * Sets parameters from the constructor
 	 *
-	 * @param {Parameter[] | [string][]} parameters Array of parameters to set
+	 * @param {Array<Parameter | [string, string | string[] | null]>} parameters Array of parameters to set
 	 * @private
 	 */
 	_setParametersFromConstructor(parameters) {
@@ -524,6 +530,7 @@ export default class Property extends observerTrait(lockableTrait(class {})) {
 
 	/**
 	 * @inheritDoc
+	 * @protected
 	 */
 	_modifyContent() {
 		super._modifyContent()

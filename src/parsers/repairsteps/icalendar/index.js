@@ -29,9 +29,14 @@ import ICalendarRemoveUnicodeSpecialNoncharactersRepairStep from './icalendarRem
 import ICalendarConvertInvalidDateTimeValuesRepairStep from './icalendarConvertInvalidDateTimeValuesRepairStep.js'
 
 /**
+ * @import AbstractRepairStep from '../abstractRepairStep.js'
+ */
+
+/**
  * Get an iterator over all repair steps for iCalendar documents
  *
  * @yields {typeof AbstractRepairStep} A repair-step constructor
+ * @return {Generator<typeof AbstractRepairStep, void, undefined>}
  */
 export function* getRepairSteps() {
 	yield ICalendarAddMissingUIDRepairStep

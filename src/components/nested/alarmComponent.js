@@ -26,12 +26,36 @@ import AttendeeProperty from '../../properties/attendeeProperty.js'
 import TriggerProperty from '../../properties/triggerProperty.js'
 
 /**
+ * @import BinaryValue from '../../values/binaryValue.js'
+ * @import { Mixin } from '../../traits/mixin.js'
+ * @import AttachmentProperty from '../../properties/attachmentProperty.js'
+ * @import DateTimeValue from '../../values/dateTimeValue.js'
+ * @import DurationValue from '../../values/durationValue.js'
+ */
+
+/**
+ * Members installed on the prototype by the advertise helpers at the end of this file
+ *
+ * @typedef {object} AlarmComponentMembers
+ * @property {string | null} action Action to be taken when this alarm is due (AUDIO, DISPLAY or EMAIL)
+ * @property {string | null} description Description for this alarm
+ * @property {string | null} summary Summary for this alarm, used as the subject of an EMAIL
+ * @property {DurationValue | null} duration Delay period between repeated alarms
+ * @property {number | null} repeat Number of times this alarm should be repeated
+ * @property {string | BinaryValue | null} attachment Sound file of an AUDIO alarm
+ * @property {() => Generator<AttendeeProperty, void, undefined>} getAttendeeIterator Returns an iterator over all attendees
+ * @property {() => AttendeeProperty[]} getAttendeeList Returns a list of all attendees
+ * @property {(item: AttendeeProperty) => void} removeAttendee Removes one of the attendees
+ * @property {() => void} clearAllAttendees Removes all attendees
+ */
+
+/**
  * @class AlarmComponent
  * @classdesc
  *
  * @see https://tools.ietf.org/html/rfc5545#section-3.6.6
  */
-export default class AlarmComponent extends AbstractComponent {
+export default class AlarmComponent extends /** @type {typeof AbstractComponent & Mixin<AlarmComponentMembers>} */ (AbstractComponent) {
 	/**
 	 * Adds a new attendee based on their name and email-address
 	 *
@@ -123,7 +147,7 @@ advertiseSingleOccurrenceProperty(AlarmComponent.prototype, 'summary')
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.2.5
  *
  * @name AlarmComponent#duration
- * @type {string}
+ * @type {DurationValue}
  */
 advertiseSingleOccurrenceProperty(AlarmComponent.prototype, 'duration')
 
@@ -145,7 +169,7 @@ advertiseSingleOccurrenceProperty(AlarmComponent.prototype, 'repeat')
  * @see https://tools.ietf.org/html/rfc5545#section-3.8.1.1
  *
  * @name AlarmComponent#attachment
- * @type {AttachmentProperty}
+ * @type {string|BinaryValue}
  */
 advertiseSingleOccurrenceProperty(AlarmComponent.prototype, {
 	name: 'attachment',
@@ -170,16 +194,6 @@ advertiseSingleOccurrenceProperty(AlarmComponent.prototype, {
  * @name AlarmComponent#getAttendeeList
  * @function
  * @return {AttendeeProperty[]}
- */
-
-/**
- * Adds a new attendee to this alarm-component
- *
- * @see https://tools.ietf.org/html/rfc5545#section-3.8.4.1
- *
- * @name AlarmComponent#addAttendee
- * @function
- * @param {AttendeeProperty} attendee - The attendee object to add
  */
 
 /**

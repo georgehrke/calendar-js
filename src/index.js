@@ -30,6 +30,11 @@ import RecurrenceManager from './recurrence/recurrenceManager.js'
 import FreeBusyComponent from './components/root/freeBusyComponent.js'
 
 /**
+ * @import AbstractRecurringComponent from './components/root/abstractRecurringComponent.js'
+ * @import AttendeeProperty from './properties/attendeeProperty.js'
+ */
+
+/**
  * parses a single ICS and returns an iterator over all occurrences
  * in a given timeframe
  *
@@ -37,6 +42,7 @@ import FreeBusyComponent from './components/root/freeBusyComponent.js'
  * @param {DateTimeValue} start The start of the queried time-range
  * @param {DateTimeValue} end The end of the queried time-range
  * @yields {AbstractRecurringComponent} An occurrence in the requested time range
+ * @return {Generator<AbstractRecurringComponent, void, undefined>}
  */
 export function* parseICSAndGetAllOccurrencesBetween(ics, start, end) {
 	const parserManager = getParserManager()

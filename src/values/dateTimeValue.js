@@ -23,6 +23,10 @@ import DurationValue from './durationValue.js'
 import ICAL from 'ical.js'
 
 /**
+ * @import { Timezone } from '@nextcloud/timezones'
+ */
+
+/**
  * @class DateTimeValue
  * @classdesc Wrapper for ICAL.Time
  *
@@ -455,4 +459,4 @@ DateTimeValue.THURSDAY = ICAL.Time.THURSDAY
 DateTimeValue.FRIDAY = ICAL.Time.FRIDAY
 DateTimeValue.SATURDAY = ICAL.Time.SATURDAY
 
-DateTimeValue.DEFAULT_WEEK_START = DateTimeValue.MONDAY
+DateTimeValue.DEFAULT_WEEK_START = ICAL.Time.MONDAY

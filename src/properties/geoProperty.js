@@ -23,6 +23,12 @@ import { createProperty } from '../factories/icalFactory.js'
 import { lc } from '../helpers/stringHelper.js'
 
 /**
+ * @import Parameter from '../parameters/parameter.js'
+ * @import AbstractComponent from '../components/abstractComponent.js'
+ * @import CalendarComponent from '../components/calendarComponent.js'
+ */
+
+/**
  * @class GeoProperty
  * @classdesc
  *
@@ -31,6 +37,11 @@ import { lc } from '../helpers/stringHelper.js'
 export default class GeoProperty extends Property {
 	/**
 	 * @inheritDoc
+	 * @param {string} name The name of the property
+	 * @param {number[]} value The value
+	 * @param {Array<Parameter | [string, string | string[] | null]>} parameters Array of parameters
+	 * @param {CalendarComponent|null} root The root of the calendar-document
+	 * @param {AbstractComponent|null} parent The parent-element of this property
 	 */
 	constructor(name, value = [0, 0], parameters = [], root = null, parent = null) {
 		super(name, value, parameters, root, parent)
