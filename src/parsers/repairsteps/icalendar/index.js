@@ -18,6 +18,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+import ICalendarAddMissingMultilineIndentationRepairStep from './icalendarAddMissingMultilineIndentationRepairStep.js'
 import ICalendarAddMissingUIDRepairStep from './icalendarAddMissingUIDRepairStep.js'
 import ICalendarAddMissingValueDateDoubleColonRepairStep from './icalendarAddMissingValueDateDoubleColonRepairStep.js'
 import ICalendarAddMissingValueDateRepairStep from './icalendarAddMissingValueDateRepairStep.js'
@@ -39,6 +40,7 @@ import ICalendarConvertInvalidDateTimeValuesRepairStep from './icalendarConvertI
  * @return {Generator<typeof AbstractRepairStep, void, undefined>}
  */
 export function* getRepairSteps() {
+	yield ICalendarAddMissingMultilineIndentationRepairStep
 	yield ICalendarAddMissingUIDRepairStep
 	yield ICalendarAddMissingValueDateDoubleColonRepairStep
 	yield ICalendarAddMissingValueDateRepairStep

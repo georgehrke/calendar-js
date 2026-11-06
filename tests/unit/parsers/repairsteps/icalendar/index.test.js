@@ -20,6 +20,8 @@
  *
  */
 import { getRepairSteps } from '../../../../../src/parsers/repairsteps/icalendar';
+import ICalendarAddMissingMultilineIndentationRepairStep
+	from '../../../../../src/parsers/repairsteps/icalendar/icalendarAddMissingMultilineIndentationRepairStep.js';
 import ICalendarAddMissingUIDRepairStep
 	from '../../../../../src/parsers/repairsteps/icalendar/icalendarAddMissingUIDRepairStep.js';
 import ICalendarAddMissingValueDateDoubleColonRepairStep
@@ -42,6 +44,7 @@ import ICalendarConvertInvalidDateTimeValuesRepairStep
 it('should provide an iterator over all parsers', () => {
 	const iterator = getRepairSteps()
 
+	expect(iterator.next().value).toEqual(ICalendarAddMissingMultilineIndentationRepairStep)
 	expect(iterator.next().value).toEqual(ICalendarAddMissingUIDRepairStep)
 	expect(iterator.next().value).toEqual(ICalendarAddMissingValueDateDoubleColonRepairStep)
 	expect(iterator.next().value).toEqual(ICalendarAddMissingValueDateRepairStep)
